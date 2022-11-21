@@ -26,8 +26,12 @@ export const Landing = () => {
       id: new Date().getTime(),
       text: file
     };
-    setFiles([...files].concat(newFile));
-    setFile('');
+    if (file === '') {
+      alert('Please enter a file name');
+    } else {
+      setFiles([...files].concat(newFile));
+      setFile('');
+    }
   };
 
   return (
