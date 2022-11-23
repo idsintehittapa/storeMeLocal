@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import pdfLogo from './assset/pdf_logo.jpg';
 import './landing.css';
 
 export const Landing = () => {
@@ -22,16 +23,22 @@ export const Landing = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newFile = {
-      id: new Date().getTime(),
-      text: file
-    };
-    if (file === '') {
-      alert('Please enter a file name');
-    } else {
+
+    let reader = new FileReader();
+    reader.readAsDataURL(e.target[0].files[0]);
+
+    reader.onload = () => {
+      const newFile = {
+        time: new Date().getTime(),
+        name: e.target[0].files[0].name,
+        user: username,
+        base64: reader.result,
+        type: e.target[0].files[0].type
+      };
+
       setFiles([...files].concat(newFile));
       setFile('');
-    }
+    };
   };
 
   return (
@@ -72,8 +79,24 @@ export const Landing = () => {
           <ul>
             {files.map((file) => {
               return (
-                <li key={file.id}>
-                  <p>{file.text}</p>
+                <li key={file.time}>
+                  <div className="li__content">
+                    {file.type === 'image/jpeg' && (
+                      <>
+                        <img src={file.base64} alt={file.name} />
+                        <p>{file.name}</p>
+                      </>
+                    )}
+                    {file.type === 'application/pdf' && (
+                      <>
+                        <img src={pdfLogo} alt="pdf logo" />
+                        <p>{file.name}</p>
+                      </>
+                    )}
+                  </div>
+                  <a download={file.name} href={file.base64}>
+                    <button>Download file</button>
+                  </a>
                 </li>
               );
             })}
