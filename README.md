@@ -10,6 +10,6 @@ This is a filebrowser, a place where a user can upload new files and browse them
 ## Getting Started
 
 1. clone this repository. You will need `node` and `npm` installed globally.
-2. `cd` 'your project folder'Installation
-3. `npm install`
+2. `cd` 'your project folder'
+3. Installation `npm install`
 4. `npm start` runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
